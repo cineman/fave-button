@@ -157,7 +157,7 @@ extension FaveButton{
         self.tintColor = isSelected ? selectedColor : normalColor
         
         if isSelected && (!disableAnimation) {
-            let radius           = bounds.size.scaleBy(1.3).width/2 // ring radius
+            let radius           = bounds.size.scaleBy(0.7).width/2 // ring radius
             let igniteFromRadius = radius*0.8
             let igniteToRadius   = radius*1.1
             
