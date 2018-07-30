@@ -61,6 +61,8 @@ open class FaveButton: UIButton {
     
     fileprivate(set) var sparkGroupCount: Int = 7
     
+    open var disableAnimation: Bool = false
+    
     override open var isSelected: Bool{
         didSet{
             animateSelect(self.isSelected, duration: Const.duration)
@@ -150,7 +152,7 @@ extension FaveButton{
         
         self.tintColor = isSelected ? selectedColor : normalColor
         
-        if isSelected{
+        if isSelected && (!disableAnimation) {
             let radius           = bounds.size.scaleBy(1.3).width/2 // ring radius
             let igniteFromRadius = radius*0.8
             let igniteToRadius   = radius*1.1
