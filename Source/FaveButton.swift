@@ -61,24 +61,14 @@ open class FaveButton: UIButton {
     
     fileprivate(set) var sparkGroupCount: Int = 7
     
-    fileprivate var faveIconImage:UIImage?
-    fileprivate var faveIcon: FaveIcon!
-    
-    
     override open var isSelected: Bool{
         didSet{
             animateSelect(self.isSelected, duration: Const.duration)
         }
     }
     
-    public init(frame: CGRect, faveIconNormal: UIImage?) {
-        super.init(frame: frame)
-        
-        guard let icon = faveIconNormal else{
-            fatalError("missing image for normal state")
-        }
-        faveIconImage = icon
-        
+    public override init(frame: CGRect) {
+        super.init(frame: frame)        
         applyInit()
     }
     
@@ -93,23 +83,10 @@ open class FaveButton: UIButton {
 extension FaveButton{
     fileprivate func applyInit(){
         
-        if nil == faveIconImage{
-            faveIconImage = image(for: UIControlState())
-        }
+        self.tintColor = self.normalColor
         
-        guard let faveIconImage = faveIconImage else{
-            fatalError("please provide an image for normal state.")
-        }
-        
-        faveIcon  = createFaveIcon(faveIconImage)
         addActions()
     }
-    
-    
-    fileprivate func createFaveIcon(_ faveIconImage: UIImage) -> FaveIcon{
-        return FaveIcon.createFaveIcon(self, icon: faveIconImage,color: normalColor)
-    }
-    
     
     fileprivate func createSparks(_ radius: CGFloat) -> [Spark] {
         var sparks    = [Spark]()
@@ -170,9 +147,8 @@ extension FaveButton{
 // MARK: animation
 extension FaveButton{
     fileprivate func animateSelect(_ isSelected: Bool, duration: Double){
-        let color  = isSelected ? selectedColor : normalColor
         
-        faveIcon.animateSelect(isSelected, fillColor: color, duration: duration, delay: Const.faveIconShowDelay)
+        self.tintColor = isSelected ? selectedColor : normalColor
         
         if isSelected{
             let radius           = bounds.size.scaleBy(1.3).width/2 // ring radius
