@@ -71,8 +71,8 @@ open class FaveButton: UIButton {
         }
     }
     
-    convenience public init(frame: CGRect, faveIconNormal: UIImage?) {
-        self.init(frame: frame)
+    public init(frame: CGRect, faveIconNormal: UIImage?) {
+        super.init(frame: frame)
         
         guard let icon = faveIconNormal else{
             fatalError("missing image for normal state")
@@ -80,10 +80,6 @@ open class FaveButton: UIButton {
         faveIconImage = icon
         
         applyInit()
-    }
-    
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -105,13 +101,7 @@ extension FaveButton{
             fatalError("please provide an image for normal state.")
         }
         
-        setImage(UIImage(), for: UIControlState())
-        setImage(UIImage(), for: .selected)
-        setTitle(nil, for: UIControlState())
-        setTitle(nil, for: .selected)
-        
         faveIcon  = createFaveIcon(faveIconImage)
-        
         addActions()
     }
     
