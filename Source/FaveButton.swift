@@ -62,6 +62,7 @@ open class FaveButton: UIButton {
     fileprivate(set) var sparkGroupCount: Int = 7
     
     open var disableAnimation: Bool = false
+    open var disableToggle: Bool = false // state is not toggled by pressing the button
     
     override open var isSelected: Bool{
         didSet{
@@ -132,7 +133,10 @@ extension FaveButton{
     }
     
     @objc func toggle(_ sender: FaveButton){
-        sender.isSelected = !sender.isSelected
+        
+        if !disableToggle {
+            sender.isSelected = !sender.isSelected
+        }
         
         guard case let delegate as FaveButtonDelegate = self.delegate else{
             return
